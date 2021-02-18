@@ -1,0 +1,78 @@
+
+Q: list all sheets in the workbook
+A: Sub ListSheets()
+
+    Dim ws As Worksheet
+    Dim x As Integer
+
+    x = 1
+
+    ActiveSheet.Range("A:A").Clear
+
+    For Each ws In Worksheets
+        ActiveSheet.Cells(x, 1) = ws.Name
+        x = x + 1
+    Next ws
+
+End Sub
+###
+
+Q: create a function that hides all worksheets except the active sheet
+A: Sub HideAllExceptActiveSheet()
+    Dim ws As Worksheet
+
+    For Each ws In ThisWorkbook.Worksheets
+        If ws.Name <> ActiveSheet.Name Then ws.Visible = xlSheetHidden
+    Next ws
+
+End Sub
+###
+
+Q: a macro that delete all the shapes in a worksheet
+A: Sub DeleteAllShapes()
+Dim GetShape As Shape
+For Each GetShape In ActiveSheet.Shapes
+  GetShape.Delete
+Next
+End Sub
+
+Q: delete all blank rows in a worksheet
+A: Sub DeleteBlankRows()
+Dim x As Long
+With ActiveSheet
+    For x = .Cells.SpecialCells(xlCellTypeLastCell).Row To 1 Step -1
+        If WorksheetFunction.CountA(.Rows(x)) = 0 Then
+            ActiveSheet.Rows(x).Delete
+        End If
+    Next
+End With
+End Sub
+###
+
+Q: higlight blank cells in a section
+A: Sub HighlightBlankCells()
+    Dim rng As Range
+
+    Set rng = Selection
+    rng.SpecialCells(xlCellTypeBlanks).Interior.Color = vbCyan
+
+End Sub
+###
+
+Q: sort column b1
+A: Sub SortDataHeader()
+Range("DataRange").Sort Key1:=Range("b1"), Order1:=xlAscending, Header:=xlYes
+End Sub
+###
+
+Q: remove text wrap from column c1
+A: Sub RemoveTextWrap()
+Range("A1").WrapText = False
+End Sub
+###
+
+Q: unmerge cells in the selection
+A: Sub UnmergeCells()
+Selection.UnMerge
+End Sub
+###

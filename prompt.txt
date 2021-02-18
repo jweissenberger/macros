@@ -1,0 +1,239 @@
+I am a highly intelligent bot that creates Excel macros. Given a prompt describing what you want to do in Excel, I will return the code to do it.
+
+Q: hide all of the worksheets except the active sheet
+A: Sub HideAllExceptActiveSheet()
+Dim ws As Worksheet
+For Each ws In ThisWorkbook.Worksheets
+If ws.Name <> ActiveSheet.Name Then ws.Visible = xlSheetHidden
+Next ws
+End Sub
+###
+
+Q: insert 4 columns
+A: Sub InsertMultipleColumns()
+Dim numCols As Integer
+Dim j As Integer
+ActiveCell.EntireColumn.Select
+On Error GoTo Last
+numCols = 4
+For j = 1 To numCols
+Selection.Insert Shift:=xlToRight, CopyOrigin:=xlFormatFromRightorAbove
+Next j
+Last: Exit Sub
+End Sub
+###
+
+Q: create a program that inserts 11 columns
+A: Sub InsertMultipleColumns()
+Dim numCols As Integer
+Dim j As Integer
+ActiveCell.EntireColumn.Select
+On Error GoTo Last
+numCols = 11
+For j = 1 To numCols
+Selection.Insert Shift:=xlToRight, CopyOrigin:=xlFormatFromRightorAbove
+Next j
+Last: Exit Sub
+End Sub
+###
+
+Q: insert 2 rows into the sheet
+A: Sub InsertTwoeRows()
+Dim numRows As Integer
+Dim j As Integer
+ActiveCell.EntireRow.Select
+On Error GoTo Last
+numRows = 2
+For j = 1 To numRows
+Selection.Insert Shift:=xlToDown, CopyOrigin:=xlFormatFromRightorAbove
+Next j
+Last: Exit Sub
+End Sub
+###
+
+Q: create a macro that takes number of rows as an input and then inserts them.
+A: Sub InsertMultipleRows()
+Dim i As Integer
+Dim j As Integer
+ActiveCell.EntireRow.Select
+On Error GoTo Last
+i = InputBox("Enter number of columns to insert", "Insert Columns")
+For j = 1 To i
+Selection.Insert Shift:=xlToDown, CopyOrigin:=xlFormatFromRightorAbove
+Next j
+Last: Exit Sub
+End Sub
+###
+
+Q: create a function that will auto fit columns in the worksheet
+A: Sub AutoFitColumns()
+Cells.Select
+Cells.EntireColumn.AutoFit
+End Sub
+###
+
+Q: make a macro that autofits all of the rows
+A: Sub AutoFitRows()
+Cells.Select
+Cells.EntireRow.AutoFit
+End Sub
+###
+
+Q: make a macro that protects all of the worksheets I have with the password jackpass
+A: Sub ProtectAllSheets()
+Dim ws As Worksheet
+Dim password As String
+password = "jackpass"
+For Each ws In Worksheets
+   ws.Protect password:=password
+Next ws
+End Sub
+###
+
+Q: design a macro that will unhide all rows and columns in the worksheet.
+A: Sub UnhideRowsColumns()
+Columns.EntireColumn.Hidden = False
+Rows.EntireRow.Hidden = False
+End Sub
+###
+
+Q: write a macro that unmerges all merged cells
+A: Sub UnmergeAllCells()
+ActiveSheet.Cells.UnMerge
+End Sub
+###
+
+Q: give me the code for a macro that will save the workbook as "My_workbook"
+A: Sub SaveWorkbook()
+Dim name As String
+name = "My_workbook"
+ThisWorkbook.SaveAs "C:UsersUsernameDesktopWorkbookName" & name
+End Sub
+###
+
+Q: code for saving the workbook with the timestamp in the name
+A: Sub SaveWorkbookWithTimeStamp()
+Dim timestamp As String
+timestamp = Format(Date, "dd-mm-yyyy") & "_" & Format(Time, "hh-ss")
+ThisWorkbook.SaveAs "C:UsersUsernameDesktopWorkbookName" & timestamp
+End Sub
+###
+
+Q: save each worksheet as a separate pdf
+A: Sub SaveWorkshetAsPDF()
+Dim ws As Worksheet
+For Each ws In Worksheets
+ws.ExportAsFixedFormat xlTypePDF, "C:UsersYOURNAMEDesktopTest" & ws.Name & ".pdf"
+Next ws
+End Sub
+###
+
+Q: code to save each worksheet as a separate pdf
+A: Sub SaveWorkshetAsPDF()
+ThisWorkbook.ExportAsFixedFormat xlTypePDF, "C:UsersYORKNAMEDesktopTest" & ThisWorkbook.Name & ".pdf"
+End Sub
+###
+
+Q: convert all of the formulas in the worksheet into values
+A: Sub ConvertToValues()
+With ActiveSheet.UsedRange
+.Value = .Value
+End With
+End Sub
+###
+
+
+Q: lock all of the cells with formulas
+A: Sub LockCellsWithFormulas()
+With ActiveSheet
+   .Unprotect
+   .Cells.Locked = False
+   .Cells.SpecialCells(xlCellTypeFormulas).Locked = True
+   .Protect AllowDeletingRows:=True
+End With
+End Sub
+###
+
+Q: protect all of the sheets in the workbook
+A: Sub ProtectAllSheets()
+Dim ws As Worksheet
+For Each ws In Worksheets
+ws.Protect
+Next ws
+End Sub
+###
+
+Q: a macro that inserts a row after every row in the section
+A: Sub InsertAlternateRows()
+Dim rng As Range
+Dim CountRow As Integer
+Dim i As Integer
+Set rng = Selection
+CountRow = rng.EntireRow.Count
+For i = 1 To CountRow
+ActiveCell.EntireRow.Insert
+ActiveCell.Offset(2, 0).Select
+Next i
+End Sub
+###
+
+Q: code to insert a date and time stamp in the adjacent cell when an entry is made or the existing contents are edited
+A: Private Sub Worksheet_Change(ByVal Target As Range)
+On Error GoTo Handler
+If Target.Column = 1 And Target.Value <> "" Then
+Application.EnableEvents = False
+Target.Offset(0, 1) = Format(Now(), "dd-mm-yyyy hh:mm:ss")
+Application.EnableEvents = True
+End If
+Handler:
+End Sub
+###
+
+Q: highlight alternating rows in a section
+A: Sub HighlightAlternateRows()
+Dim Myrange As Range
+Dim Myrow As Range
+Set Myrange = Selection
+For Each Myrow In Myrange.Rows
+   If Myrow.Row Mod 2 = 1 Then
+      Myrow.Interior.Color = vbCyan
+   End If
+Next Myrow
+End Sub
+###
+
+Q: highlight cells with misspelled words
+A: Sub HighlightMisspelledCells()
+Dim cl As Range
+For Each cl In ActiveSheet.UsedRange
+If Not Application.CheckSpelling(word:=cl.Text) Then
+cl.Interior.Color = vbRed
+End If
+Next cl
+End Sub
+###
+
+Q: change the case of selected cells to uppercase
+A: Sub ChangeCase()
+Dim Rng As Range
+For Each Rng In Selection.Cells
+If Rng.HasFormula = False Then
+Rng.Value = UCase(Rng.Value)
+End If
+Next Rng
+End Sub
+###
+
+Q: create a macro that highlights all cells with comments
+A: Sub HighlightCellsWithComments()
+ActiveSheet.Cells.SpecialCells(xlCellTypeComments).Interior.Color = vbBlue
+End Sub
+###
+
+Q: highlight all the black cells in the section
+A: Sub HighlightBlankCells()
+Dim Dataset as Range
+Set Dataset = Selection
+Dataset.SpecialCells(xlCellTypeBlanks).Interior.Color = vbRed
+End Sub
+###
